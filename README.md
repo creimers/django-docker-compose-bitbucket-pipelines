@@ -8,9 +8,7 @@
 
 ### development
 * `make install` or `docker-compose build`
-*
 * `make migrate` or `docker-compose run django python ./manage.py migrate`
-
 * `make runserver` or `docker-compose run -p 8000:8000 django python ./manage.py runserver 0.0.0.0:8000`
 
 ### production
