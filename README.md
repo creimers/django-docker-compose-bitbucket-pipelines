@@ -1,4 +1,5 @@
 # django-docker-compose-pipelines-example
+An example of how to use bitbucket pipelines for a django docker-compose project.
 
 ## what's inside.
 * python3
