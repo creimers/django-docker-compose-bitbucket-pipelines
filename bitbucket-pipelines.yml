@@ -1,0 +1,25 @@
+image: python:3.6
+
+pipelines:
+  branches:
+    master:
+      - step:
+          services:
+            - docker
+          caches: 
+            - docker
+            - pip
+          script:
+            # Build
+            - pip install docker-compose
+            - docker-compose -f docker-compose-pipelines.yml build
+            - docker-compose -f docker-compose-pipelines.yml up -d
+            - sleep 10 # don't ask me why...
+            # Test
+            - docker-compose -f docker-compose-pipelines.yml exec -T django py.test
+            # Teardown
+            - docker-compose -f docker-compose-pipelines.yml down
+            # Example: Deploy to AWS beanstalk
+            # - pip install awsebcli
+            # - eb init $EB_APPLICATION_NAME -r $AWS_DEFAULT_REGION -p "arn:aws:elasticbeanstalk:eu-central-1::platform/Docker running on 64bit Amazon Linux/2.12.5"
+            # - eb deploy $ENVIRONMENT_NAME_PRODUCTION
